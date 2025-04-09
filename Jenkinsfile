@@ -1,26 +1,19 @@
 pipeline {
     agent any
-
     stages {
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                sh './mvnw clean package' // Use mvn if not using mvnw wrapper
+                bat "${tool 'Maven-3.9.9'}\\bin\\mvn clean compile package"
             }
         }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh './mvnw test'
-            }
+    }
+    post {
+        success {
+            archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+            echo 'Build succeeded!'
         }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the application...'
-                // Add your deploy script or commands here
-            }
+        failure {
+            echo 'Build failed!'
         }
     }
 }
