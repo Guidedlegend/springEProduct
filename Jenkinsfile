@@ -5,8 +5,8 @@ pipeline {
             steps {
                 script {
                     docker.image('maven:3.9.9').inside(args: [
-                        '-v', 'C:\\Users\\katar\\.m2:/root/.m2',
-                        '-v', 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\springEProductPipeline:/workspace'
+                        '-v', '/mnt/c/Users/hh/.m2:/root/.m2',
+                        '-v', '/mnt/c/ProgramData/Jenkins/.jenkins/workspace/springEProductPipeline:/workspace'
                     ]) {
                         dir('/workspace') {
                             sh 'mvn clean install'
