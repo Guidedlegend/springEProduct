@@ -1,8 +1,12 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3.9.9' // Official Maven image with Maven 3.9.9
-            args '-v /c/ProgramData/Jenkins/.jenkins/.m2:/root/.m2' // Mount local Maven repo from Jenkins host
+            image 'maven:3.9.9'
+            args '''
+                -v /c/ProgramData/Jenkins/.jenkins/.m2:/root/.m2 
+                -v /c/ProgramData/Jenkins/.jenkins/workspace:/workspace 
+                -w /workspace/springEProductPipeline
+            '''.trim()
         }
     }
 
