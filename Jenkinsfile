@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'maven:3.9.9' // Official Maven image with Maven 3.9.9
-            args '-v $HOME/.m2:/root/.m2' // Mount local Maven repo to avoid re-downloading dependencies
+            args '-v /c/ProgramData/Jenkins/.jenkins/.m2:/root/.m2' // Mount local Maven repo from Jenkins host
         }
     }
 
@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'mvn clean compile package' // Use 'sh' instead of 'bat' since we're in a Linux-based Docker container
+                sh 'mvn clean compile package'
             }
         }
 
