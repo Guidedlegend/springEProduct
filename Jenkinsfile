@@ -3,7 +3,7 @@ pipeline {
         docker {
             image 'maven:3.9.9'
             args '''
-                -v C:/ProgramData/Jenkins/.jenkins/.m2:/root/.m2
+                -v C:/Users/katar/.m2:/root/.m2
                 -v C:/ProgramData/Jenkins/.jenkins/workspace/springEProductPipeline:/workspace
                 -w /workspace
             '''.trim()
@@ -13,49 +13,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                sh 'mvn clean compile package'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'mvn test'
-            }
-        }
-    }
-
-    post {
-        failure {
-            echo 'Build failed!'
-        }
-    }
-}
-pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.9'
-            args '''
-                -v C:/ProgramData/Jenkins/.jenkins/.m2:/root/.m2
-                -v C:/ProgramData/Jenkins/.jenkins/workspace/springEProductPipeline:/workspace
-                -w /workspace
-            '''.trim()
-        }
-    }
-
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building the project...'
-                sh 'mvn clean compile package'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'mvn test'
+                sh 'mvn clean install'
             }
         }
     }
